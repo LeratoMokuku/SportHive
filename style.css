@@ -174,94 +174,213 @@ nav ul li a:hover {
   }
 }
 
-/* About Section - Flippable Cards */
+/* ===== About Section Styles ===== */
 .about-section {
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.9);
-  color: #000;
+  padding: 4rem 2rem;
+  background: #f9f9f9;
+  color: #333;
+  position: relative;
+}
+
+.section-header {
   text-align: center;
+  margin-bottom: 3rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.about-content {
+.section-header h2 {
+  font-size: 2.5rem;
+  color: #012350;
+  margin-bottom: 1rem;
+}
+
+.section-header p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* About Cards with Background Images */
+.about-card {
+  border-radius: 8px;
+  min-height: 300px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 2rem; /* Adds spacing between cards */
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-.flip-card {
-  background-color: transparent;
-  width: 400px;
-  height: 400px;
-  perspective: 1000px; /* Enables 3D perspective */
+.card-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  transition: background 0.3s ease;
+}
+
+.card-content {
+  position: relative;
+  z-index: 3;
+  color: white;
+  padding: 2rem;
+  width: 100%;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.about-card:hover .card-overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.card-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.card-content p {
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* Button Styling */
+.btn-outline {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  font-size: 0.9rem;
   cursor: pointer;
 }
 
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d; /* Ensures child elements are rendered in 3D */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.btn-outline:hover {
+  background: white;
+  color: #012350;
+  text-decoration: none;
+}
+
+/* Documentation Sections */
+.doc-section {
+  background: white;
+  padding: 2rem;
   border-radius: 8px;
-}
-.flip-card.flipped .flip-card-inner {
-  transform: rotateY(180deg); /* Ensure it rotates when the "flipped" class is added */
-}
-
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden; /* Hides the back face of the card */
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  box-sizing: border-box;
+  margin: 2rem auto;
+  max-width: 900px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: none;
 }
 
-.flip-card-front {
-  background-color: #fff;
-  background-size: cover;
-  background-position: center;
-  color: #fff;
+.doc-section:target {
+  display: block;
+  animation: fadeIn 0.5s ease-out;
 }
 
-.flip-card-front h3 {
-  font-size: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.flip-card-back {
-  background-color: #ffd700;
-  color: #000;
-  transform: rotateY(180deg); /* Initially hides the back face */
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .about-card {
+    min-height: 250px;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+  }
 }
 
-.flip-card-back p, .flip-card-back ul {
-  margin: 0;
-  font-size: 1rem;
+@media (max-width: 480px) {
+  .about-section {
+    padding: 2rem 1rem;
+  }
+  
+  .card-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .btn-outline {
+    padding: 0.5rem 1.2rem;
+    font-size: 0.8rem;
+  }
 }
 
-.flip-card-back ul {
-  list-style: none;
-  padding: 0;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.flip-card-back ul li {
-  margin: 0.5rem 0;
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .about-card {
+    min-height: 200px;
+  }
+  
+  .section-header h2 {
+    font-size: 2rem;
+  }
 }
-.mission, .ethics, .business-model, .management-levels, .functional-areas, .digitization-changes {
-  background: #ffffffc2;
-  padding: 1rem;
-  margin: 1rem;
-  border-radius: 8px;
-  width: calc(30% - 2rem);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 2rem 1rem;
+  }
+  
+  .card-content h3 {
+    font-size: 1.3rem;
+  }
+  
+  .btn-outline {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.8rem;
+  }
 }
 /* Feedback and Supplier Forms */
 .feedback, .supplier {
@@ -377,4 +496,181 @@ footer {
 
 .sports-images img:hover {
   transform: scale(1.1);
+}
+/* Statistics Page Styles */
+.stats-filter {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  align-items: center;
+}
+
+.stats-filter select, .stats-filter button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.stats-filter button {
+  background: #ffd700;
+  color: #000;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.stats-filter button:hover {
+  background: #e6b800;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.stats-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stats-card h3 {
+  color: #012350;
+  margin-top: 0;
+  border-bottom: 2px solid #ffd700;
+  padding-bottom: 0.5rem;
+}
+
+.stats-table {
+  overflow-x: auto;
+}
+
+.stats-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stats-table th, .stats-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.stats-table th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.stats-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.chart-container {
+  position: relative;
+  height: 250px;
+  width: 100%;
+}
+
+/* Documents Section with SportHive Yellow/Gold Theme */
+.documents-section {
+  padding: 4rem 2rem;
+  background: #f9f9f9;
+}
+
+.section-title {
+  color: #012350;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  color: #666;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.document-card {
+  background: #ffd700; /* SportHive gold */
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border: 2px solid #012350; /* Navy border */
+}
+
+.document-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.card-icon {
+  color: #012350; /* Navy */
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.document-card h3 {
+  color: #012350; /* Navy */
+  margin: 0 0 0.5rem 0;
+}
+
+.document-card > p {
+  color: #333;
+  margin: 0 0 1rem 0;
+}
+
+.card-details {
+  border-top: 2px solid #012350;
+  padding-top: 1rem;
+  margin-top: auto;
+}
+
+.card-details p {
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  background: #012350; /* Navy */
+  color: #ffd700; /* Gold text */
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 2px solid #012350;
+}
+
+.download-btn:hover {
+  background: #ffd700; /* Gold */
+  color: #012350; /* Navy text */
+}
+
+.download-btn i {
+  margin-right: 0.5rem;
+}
+#EAA{
+  background-color: #fff;
+}
+
+#EAA h2 {
+  color: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .documents-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
 }
